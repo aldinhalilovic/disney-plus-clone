@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { iMovie } from "../../model/model";
+import { IMovie } from "../../model/model";
 
 interface MovieCards {
-  movies: iMovie[];
+  movies: IMovie[];
 }
 
 const initialState: MovieCards = {
@@ -14,7 +14,7 @@ export const movieSlice = createSlice({
   initialState,
   reducers: {
     addMovies(state, action) {
-      state.movies.push(action.payload);
+      state.movies = action.payload;
     },
   },
 });

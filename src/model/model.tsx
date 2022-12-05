@@ -1,4 +1,5 @@
-export interface iMovie {
+export interface IMovie {
+  id: string;
   backgroundImg: string;
   cardImg: string;
   description: string;
