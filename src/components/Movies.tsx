@@ -7,7 +7,7 @@ const Movies = () => {
   const movies = useAppSelector((state) => state.movies.movies);
   const navigate = useNavigate();
 
-  const jumpToSomewhere = (id: string) => {
+  const jumpToMovie = (id: string) => {
     navigate(`detail/${id}`);
   };
 
@@ -16,7 +16,7 @@ const Movies = () => {
       <h4>Recommended for You</h4>
       <Content>
         {movies?.map((el) => (
-          <Wrap key={el.title} onClick={() => jumpToSomewhere(el.id)}>
+          <Wrap key={el.title} onClick={() => jumpToMovie(el.id)}>
             <img src={el.cardImg} />
           </Wrap>
         ))}
