@@ -1,37 +1,78 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { auth, provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { loginAction } from "../app/slices/loginSlice";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const userName = useAppSelector((state) => state.login.name);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const googleSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        dispatch(
+          loginAction.setUserLogin({
+            name: res.user.displayName,
+            email: res.user.email,
+            photo: res.user.photoURL,
+          }),
+        );
+        navigate("/");
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        dispatch(loginAction.setSignOut());
+        navigate("/login");
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <Nav>
       <Logo src="/images/logo.svg" />
-      <NavMenu>
-        <a>
-          <img src="/images/home-icon.svg" />
-          <span>HOME</span>
-        </a>
-        <a>
-          <img src="/images/search-icon.svg" />
-          <span>WATCHLIST</span>
-        </a>
-        <a>
-          <img src="/images/watchlist-icon.svg" />
-          <span>WATCHLIST</span>
-        </a>
-        <a>
-          <img src="/images/original-icon.svg" />
-          <span>ORIGINALS</span>
-        </a>
-        <a>
-          <img src="/images/movie-icon.svg" />
-          <span>MOVIES</span>
-        </a>
-        <a>
-          <img src="/images/series-icon.svg" />
-          <span>SERIES</span>
-        </a>
-      </NavMenu>
-      <UserImg src="/images/Aldin.png.jpeg" />
+      {userName === "" ? (
+        <LoginContainer>
+          <Login onClick={googleSignIn}>Login</Login>
+        </LoginContainer>
+      ) : (
+        <>
+          <NavMenu>
+            <a>
+              <img src="/images/home-icon.svg" />
+              <span>HOME</span>
+            </a>
+            <a>
+              <img src="/images/search-icon.svg" />
+              <span>WATCHLIST</span>
+            </a>
+            <a>
+              <img src="/images/watchlist-icon.svg" />
+              <span>WATCHLIST</span>
+            </a>
+            <a>
+              <img src="/images/original-icon.svg" />
+              <span>ORIGINALS</span>
+            </a>
+            <a>
+              <img src="/images/movie-icon.svg" />
+              <span>MOVIES</span>
+            </a>
+            <a>
+              <img src="/images/series-icon.svg" />
+              <span>SERIES</span>
+            </a>
+          </NavMenu>
+          <UserImg src="/images/Aldin.png.jpeg" onClick={signOut} />
+        </>
+      )}
     </Nav>
   );
 };
@@ -101,4 +142,27 @@ const UserImg = styled.img`
   height: 48px;
   border-radius: 50%;
   cursor: pointer;
+`;
+
+const Login = styled.div`
+  border: 1px solid #f9f9f9;
+  padding: 8px 16px;
+  border-radius: 4px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease 0s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f9f9f9;
+    color: #000;
+    border-color: transparent;
+  }
+`;
+
+const LoginContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 `;

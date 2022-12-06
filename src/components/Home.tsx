@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { movieAction } from "../features/movie/movieslice";
+import { movieAction } from "../app/slices/movieslice";
 import { getMovies } from "../firebase";
 import ImgSlider from "./ImgSlider";
 import Movies from "./Movies";
@@ -9,10 +10,18 @@ import Viewers from "./Viewers";
 
 const Home = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const userName = useAppSelector((state) => state.login.name);
 
   useEffect(() => {
     void getMovies().then((res) => dispatch(movieAction.addMovies(res)));
     dispatch(movieAction.resetMovie());
+  }, []);
+
+  useEffect(() => {
+    if (userName === "") {
+      navigate("/login");
+    }
   }, []);
 
   return (

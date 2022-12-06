@@ -1,11 +1,9 @@
-import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getMovie } from "../features/firebase/getMovie";
-import { movieAction } from "../features/movie/movieslice";
-import { IMovie } from "../model/model";
+import { movieAction } from "../app/slices/movieslice";
 
 const Detail = () => {
   const { id } = useParams();
@@ -19,30 +17,36 @@ const Detail = () => {
 
   return (
     <Container>
-      <Background>
-        <img src={movie?.backgroundImg} />
-      </Background>
-      <ImageTitle>
-        <img src={movie?.titleImg} />
-      </ImageTitle>
-      <Controls>
-        <PlayButton>
-          <img src="/images/play-icon-black.png" />
-          <span>PLAY</span>
-        </PlayButton>
-        <TrailerButton>
-          <img src="/images/play-icon-white.png" />
-          <span>Trailer</span>
-        </TrailerButton>
-        <AddButton>
-          <span>+</span>
-        </AddButton>
-        <GroupWatchButton>
-          <img src="/images/group-icon.png" />
-        </GroupWatchButton>
-      </Controls>
-      <SubTitle>{movie?.subTitle}</SubTitle>
-      <Description>{movie?.description}</Description>
+      {movie.id !== "" ? (
+        <>
+          <Background>
+            <img src={movie?.backgroundImg} />
+          </Background>
+          <ImageTitle>
+            <img src={movie?.titleImg} />
+          </ImageTitle>
+          <Controls>
+            <PlayButton>
+              <img src="/images/play-icon-black.png" />
+              <span>PLAY</span>
+            </PlayButton>
+            <TrailerButton>
+              <img src="/images/play-icon-white.png" />
+              <span>Trailer</span>
+            </TrailerButton>
+            <AddButton>
+              <span>+</span>
+            </AddButton>
+            <GroupWatchButton>
+              <img src="/images/group-icon.png" />
+            </GroupWatchButton>
+          </Controls>
+          <SubTitle>{movie?.subTitle}</SubTitle>
+          <Description>{movie?.description}</Description>
+        </>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

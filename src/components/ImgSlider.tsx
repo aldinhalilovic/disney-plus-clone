@@ -31,10 +31,10 @@ const ImgSlider = () => {
         <img src="/images/slider-badag.jpg" alt="aa" />
       </Wrap>
       <Wrap>
-        <img src="/images/slider-badging.jpg" alt="aa" />
+        <img src="/images/slider-scale.jpg" alt="aa" />
       </Wrap>
       <Wrap>
-        <img src="/images/slider-badging.jpg" alt="aa" />
+        <img src="/images/slider-scales.jpg" alt="aa" />
       </Wrap>
     </Carousel>
   );
