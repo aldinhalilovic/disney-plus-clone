@@ -6,4 +6,5 @@ export interface IMovie {
   subTitle: string;
   title: string;
   titleImg: string;
+  trailer: string;
 }

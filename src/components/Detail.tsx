@@ -31,8 +31,10 @@ const Detail = () => {
               <span>PLAY</span>
             </PlayButton>
             <TrailerButton>
-              <img src="/images/play-icon-white.png" />
-              <span>Trailer</span>
+              <a href={movie?.trailer} target={"_blank"} rel="noreferrer">
+                <img src="/images/play-icon-white.png" />
+                <span>Trailer</span>
+              </a>
             </TrailerButton>
             <AddButton>
               <span>+</span>
@@ -116,6 +118,14 @@ const TrailerButton = styled(PlayButton)`
   border: 1px solid rgb(249, 249, 249);
   color: rgb(249, 249, 249);
   text-transform: uppercase;
+
+  a {
+    text-decoration: none;
+    color: rgb(249, 249, 249);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const AddButton = styled.button`
   width: 44px;

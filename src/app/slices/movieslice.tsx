@@ -16,6 +16,7 @@ const initialState: MovieCards = {
     subTitle: "",
     title: "",
     titleImg: "",
+    trailer: "",
   },
 };
 
@@ -38,6 +39,7 @@ export const movieSlice = createSlice({
         subTitle: "",
         title: "",
         titleImg: "",
+        trailer: "",
       };
     },
   },
