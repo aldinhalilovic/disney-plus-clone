@@ -7,8 +7,10 @@ import { loginAction } from "../app/slices/loginSlice";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
   const userName = useAppSelector((state) => state.login.name);
+  const userPhoto = useAppSelector((state) => state.login.photo);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  console.log(typeof userPhoto);
 
   const googleSignIn = () => {
     signInWithPopup(auth, provider)
@@ -70,7 +72,7 @@ const Header = () => {
               <span>SERIES</span>
             </a>
           </NavMenu>
-          <UserImg src="/images/Aldin.png.jpeg" onClick={signOut} />
+          <UserImg src={userPhoto.toString()} onClick={signOut} />
         </>
       )}
     </Nav>
