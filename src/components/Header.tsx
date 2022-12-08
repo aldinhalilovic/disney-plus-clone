@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 import { loginAction } from "../app/slices/loginSlice";
 import { auth, provider } from "../firebase";
 import { signInWithPopup, UserCredential } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
-  const user = useAppSelector((state) => state.login);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ const Header = () => {
   return (
     <Nav>
       <Logo src="/images/logo.svg" />
-      {user.name === "" ? (
+      {localStorage.getItem("name") === null ? (
         <LoginContainer>
           <Login onClick={googleSignIn}>Login</Login>
         </LoginContainer>
@@ -79,7 +78,6 @@ const Header = () => {
             </a>
           </NavMenu>
           <Login onClick={signOut}>Logout</Login>
-          <UserImg src={user.photo.toString()} />
         </>
       )}
     </Nav>
@@ -144,14 +142,6 @@ const NavMenu = styled.div`
       }
     }
   }
-`;
-
-const UserImg = styled.img`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-left: 15px;
 `;
 
 const Login = styled.div`

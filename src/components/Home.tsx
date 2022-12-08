@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { loginAction } from "../app/slices/loginSlice";
 import { movieAction } from "../app/slices/movieslice";
 import { getMovies } from "../firebase";
@@ -10,6 +11,14 @@ import Viewers from "./Viewers";
 
 const Home = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector((state) => state.login);
+
+  useEffect(() => {
+    if (localStorage.getItem("name") === null) {
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     void getMovies().then((res) => dispatch(movieAction.addMovies(res)));
@@ -26,6 +35,7 @@ const Home = () => {
     );
   }, []);
 
+  console.log(user);
   return (
     <Container>
       <ImgSlider />
