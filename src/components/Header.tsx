@@ -2,19 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { auth, provider } from "../firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, UserCredential } from "firebase/auth";
 import { loginAction } from "../app/slices/loginSlice";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
-  const userName = useAppSelector((state) => state.login.name);
-  const userPhoto = useAppSelector((state) => state.login.photo);
+  const user = useAppSelector((state) => state.login);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  console.log(typeof userPhoto);
+
+  const addToLocal = (res: UserCredential) => {
+    localStorage.setItem("name", res.user.displayName ?? "");
+    localStorage.setItem("photo", res.user.photoURL ?? "");
+    localStorage.setItem("email", res.user.email ?? "");
+  };
 
   const googleSignIn = () => {
     signInWithPopup(auth, provider)
       .then((res) => {
+        addToLocal(res);
         dispatch(
           loginAction.setUserLogin({
             name: res.user.displayName,
@@ -33,6 +38,7 @@ const Header = () => {
       .then(() => {
         dispatch(loginAction.setSignOut());
         navigate("/login");
+        localStorage.clear();
       })
       .catch((e) => console.log(e));
   };
@@ -40,7 +46,7 @@ const Header = () => {
   return (
     <Nav>
       <Logo src="/images/logo.svg" />
-      {userName === "" ? (
+      {user.name === "" ? (
         <LoginContainer>
           <Login onClick={googleSignIn}>Login</Login>
         </LoginContainer>
@@ -72,7 +78,7 @@ const Header = () => {
               <span>SERIES</span>
             </a>
           </NavMenu>
-          <UserImg src={userPhoto.toString()} onClick={signOut} />
+          <UserImg src={user.photo.toString()} onClick={signOut} />
         </>
       )}
     </Nav>

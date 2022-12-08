@@ -1,3 +1,4 @@
+import { MantineProvider } from "@mantine/core";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -9,12 +10,14 @@ import Login from "./components/Login";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/detail/:id" element={<Detail />} />
-      </Routes>
+      <MantineProvider withNormalizeCSS>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/detail/:id" element={<Detail />} />
+        </Routes>
+      </MantineProvider>
     </div>
   );
 }

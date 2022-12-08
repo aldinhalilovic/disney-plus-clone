@@ -1,18 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getMovie } from "../features/firebase/getMovie";
 import { movieAction } from "../app/slices/movieslice";
+import { Modal } from "@mantine/core";
+import { loginAction } from "../app/slices/loginSlice";
 
 const Detail = () => {
+  const [opened, setOpened] = useState<boolean>(false);
   const { id } = useParams();
-
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.movies.movie);
+  const iframeTrailer = movie?.trailer;
 
   useEffect(() => {
     void getMovie(id).then((res) => dispatch(movieAction.addMovie(res)));
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      loginAction.setUserLogin({
+        name: localStorage.getItem("name"),
+        email: localStorage.getItem("email"),
+        photo: localStorage.getItem("photo"),
+      }),
+    );
   }, []);
 
   return (
@@ -30,11 +43,9 @@ const Detail = () => {
               <img src="/images/play-icon-black.png" />
               <span>PLAY</span>
             </PlayButton>
-            <TrailerButton>
-              <a href={movie?.trailer} target={"_blank"} rel="noreferrer">
-                <img src="/images/play-icon-white.png" />
-                <span>Trailer</span>
-              </a>
+            <TrailerButton onClick={() => setOpened(true)}>
+              <img src="/images/play-icon-white.png" />
+              <span>Trailer</span>
             </TrailerButton>
             <AddButton>
               <span>+</span>
@@ -45,6 +56,25 @@ const Detail = () => {
           </Controls>
           <SubTitle>{movie?.subTitle}</SubTitle>
           <Description>{movie?.description}</Description>
+          <Modal
+            centered
+            opened={opened}
+            onClose={() => setOpened(false)}
+            size="auto"
+            overlayColor="black"
+            overlayBlur={4}
+            withCloseButton={false}
+            padding={0}
+          >
+            <iframe
+              height={290}
+              width={550}
+              src={`https://www.youtube.com/embed/${iframeTrailer}`}
+              style={{
+                border: "none",
+              }}
+            ></iframe>
+          </Modal>
         </>
       ) : (
         <></>

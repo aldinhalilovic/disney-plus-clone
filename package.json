@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
     "@firebase/app-types": "^0.8.1",
+    "@mantine/core": "^5.9.2",
+    "@mantine/hooks": "^5.9.2",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.1",

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { loginAction } from "../app/slices/loginSlice";
 import { movieAction } from "../app/slices/movieslice";
 import { getMovies } from "../firebase";
 import ImgSlider from "./ImgSlider";
@@ -10,8 +10,7 @@ import Viewers from "./Viewers";
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const userName = useAppSelector((state) => state.login.name);
+  const user = useAppSelector((state) => state.login);
 
   useEffect(() => {
     void getMovies().then((res) => dispatch(movieAction.addMovies(res)));
@@ -19,10 +18,16 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (userName === "") {
-      navigate("/login");
-    }
+    dispatch(
+      loginAction.setUserLogin({
+        name: localStorage.getItem("name"),
+        email: localStorage.getItem("email"),
+        photo: localStorage.getItem("photo"),
+      }),
+    );
   }, []);
+
+  console.log(user);
 
   return (
     <Container>
