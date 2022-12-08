@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { loginAction } from "../app/slices/loginSlice";
 import { auth, provider } from "../firebase";
 import { signInWithPopup, UserCredential } from "firebase/auth";
-import { loginAction } from "../app/slices/loginSlice";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
   const user = useAppSelector((state) => state.login);
@@ -78,7 +78,8 @@ const Header = () => {
               <span>SERIES</span>
             </a>
           </NavMenu>
-          <UserImg src={user.photo.toString()} onClick={signOut} />
+          <Login onClick={signOut}>Logout</Login>
+          <UserImg src={user.photo.toString()} />
         </>
       )}
     </Nav>
@@ -150,6 +151,7 @@ const UserImg = styled.img`
   height: 48px;
   border-radius: 50%;
   cursor: pointer;
+  margin-left: 15px;
 `;
 
 const Login = styled.div`

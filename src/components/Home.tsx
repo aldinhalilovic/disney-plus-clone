@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 import { loginAction } from "../app/slices/loginSlice";
 import { movieAction } from "../app/slices/movieslice";
 import { getMovies } from "../firebase";
@@ -10,7 +10,6 @@ import Viewers from "./Viewers";
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.login);
 
   useEffect(() => {
     void getMovies().then((res) => dispatch(movieAction.addMovies(res)));
@@ -26,8 +25,6 @@ const Home = () => {
       }),
     );
   }, []);
-
-  console.log(user);
 
   return (
     <Container>
