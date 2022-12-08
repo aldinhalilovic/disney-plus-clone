@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.0.2",
     "@types/react-slick": "^0.23.10",
     "@types/styled-components": "^5.1.26",
+    "env-cmd": "^10.1.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -40,7 +41,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "build:deploy": "env-cmd -f .env yarn run build"
   },
   "eslintConfig": {
     "extends": [
