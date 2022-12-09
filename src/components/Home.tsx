@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 import { loginAction } from "../app/slices/loginSlice";
 import { movieAction } from "../app/slices/movieslice";
 import { getMovies } from "../firebase";
