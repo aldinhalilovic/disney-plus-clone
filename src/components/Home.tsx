@@ -12,7 +12,7 @@ import Viewers from "./Viewers";
 const Home = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.login);
+  const user = useAppSelector((state: any) => state.login);
 
   useEffect(() => {
     if (localStorage.getItem("name") === null) {
