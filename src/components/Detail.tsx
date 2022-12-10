@@ -11,6 +11,7 @@ const Detail = () => {
   const [opened, setOpened] = useState<boolean>(false);
   const { id } = useParams();
   const dispatch = useAppDispatch();
+
   const movie = useAppSelector((state) => state.movies.movie);
   const iframeTrailer = movie?.trailer;
 
