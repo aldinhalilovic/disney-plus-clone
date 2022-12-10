@@ -67,8 +67,8 @@ const Detail = () => {
             padding={0}
           >
             <iframe
-              height={290}
-              width={550}
+              height={400}
+              width={680}
               src={`https://www.youtube.com/embed/${iframeTrailer}`}
               style={{
                 border: "none",

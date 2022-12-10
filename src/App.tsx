@@ -1,11 +1,12 @@
-import { MantineProvider } from "@mantine/core";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 import Detail from "./components/Detail";
+import Error from "./components/Error";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import { MantineProvider } from "@mantine/core";
+import "./App.css";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/*" element={<Error />} />
         </Routes>
       </MantineProvider>
     </div>
