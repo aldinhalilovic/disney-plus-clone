@@ -44,7 +44,7 @@ const Header = () => {
 
   return (
     <Nav>
-      <Logo src="/images/logo.svg" />
+      <Logo src="/images/logo.svg" onClick={() => navigate("/")} />
       {localStorage.getItem("name") === null ? (
         <LoginContainer>
           <Login onClick={googleSignIn}>Login</Login>
@@ -97,6 +97,7 @@ const Nav = styled.nav`
 
 const Logo = styled.img`
   width: 80px;
+  cursor: pointer;
 `;
 
 const NavMenu = styled.div`
