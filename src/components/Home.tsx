@@ -17,11 +17,13 @@ const Home = () => {
     if (localStorage.getItem("name") === null) {
       navigate("/login");
     }
+    console.log("prosao prvi");
   }, []);
 
   useEffect(() => {
     void getMovies().then((res) => dispatch(movieAction.addMovies(res)));
     dispatch(movieAction.resetMovie());
+    console.log("prosao drugi");
   }, []);
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Home = () => {
         photo: localStorage.getItem("photo"),
       }),
     );
+    console.log("prosao treci");
   }, []);
 
   return (
